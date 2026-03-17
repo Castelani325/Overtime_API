@@ -1,0 +1,6 @@
+@Rest_Overtime_HostAddress = http://localhost:5291
+
+GET {{Rest_Overtime_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
