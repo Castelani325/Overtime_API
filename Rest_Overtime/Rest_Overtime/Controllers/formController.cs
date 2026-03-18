@@ -4,22 +4,41 @@ using Rest_Overtime.Model; // Importa o "sobrenome" lógico, não o caminho do a
 namespace Rest_Overtime.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")] // Boa prática manter o /api/
+    [Route("api/[controller]")]
     public class FormController : ControllerBase
     {
-        private static long _counter = 0;
-        private static readonly string _template = "Hello, {0}!";
-
-
-        [HttpGet]
-        public Greeting Get([FromQuery] string name = "World") // Removido o 'class' daqui, é apenas o tipo de retorno
+        [HttpPost]
+        public IActionResult Create([FromBody] OvertimeRequestDTO request)
         {
-            
-            // Simulando acesso a um BD (Dados mockados)
-            var id = Interlocked.Increment(ref _counter);
-            var content = string.Format(_template, name);
-            
-            return new Greeting (id, content, 2222222 );
+            if (!ModelState.IsValid) return BadRequest(ModelState); // Valida o modelo e retorna erros, se houver
+
+
+            try
+            {
+                // - Salva no BD 
+
+                // DB : MASTER 2 RM FOLHA - PFUNC
+                // TABELA : 
+
+
+
+                // - Envia email
+                // - Verifica Saldo de horas
+                // - Confirma sucesso
+
+
+                Console.WriteLine($"Recebida a solicitação para atender o cliente : {request.client}");
+                Console.WriteLine($"Total de Colaboradores envolvidos: {request.Employees.Count}");
+
+                return Ok(new { message = "Solicitação de horas extras criadas com sucesso", id = Guid.NewGuid() });
+
+            }
+
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Erro internos : {ex.Message}");
+
+            }
         }
     }
 }
