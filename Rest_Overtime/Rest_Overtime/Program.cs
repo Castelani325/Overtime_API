@@ -1,5 +1,8 @@
 using System.Reflection.Metadata;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Rest_Overtime.Data;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,6 +39,15 @@ builder.Services.AddSwaggerGen(c =>
         Description = "API para gestão de solicitações de horas extras"
     });
 });
+
+
+// COnfig do BD SQL Server 
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+builder.Services.AddDbContext<AppDbContext>(option =>
+    option.UseSqlServer(ConnectionString));
+
+
 
 
 
