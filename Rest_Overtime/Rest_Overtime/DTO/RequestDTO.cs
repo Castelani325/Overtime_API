@@ -8,8 +8,10 @@ namespace Rest_Overtime.Model
     [Table("Empregados")]
 	public class EmployeeDTO //DTO de funcionário, para receber os dados do formulário
 	{
+        [Key] // para EF conseguir criar a tabela
+        public int Id { get; set; }
 
-		[Required]
+        [Required]
 		public string RegistrationId { get; set; }
 
 		[Required]
@@ -25,8 +27,9 @@ namespace Rest_Overtime.Model
 
 
         //CRIAR DTO
-        [Required]
-        public string Unit { get; set; } = string.Empty; // React: unit
+        [Required(ErrorMessage = "A unidade é obrigatória.")]
+        [RegularExpression("^(VTT|VTE|VAC)$", ErrorMessage = "Unidade inválida. Use VTT, VTE ou VAC.")]
+        public string Unit { get; set; } = string.Empty;
 
 
         //PUXAR DO BD OU CRIAR DTO DE CLIENTES (IDELA QUE SE PUXE DE ALGUM LUGAR)

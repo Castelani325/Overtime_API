@@ -41,11 +41,21 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 
-// COnfig do BD SQL Server 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+// COnfig do BD SQL Server => Overtime + RMFOLHA
+var connectionStringDBOvertime = builder.Configuration.GetConnectionString("DefaultConnection");
 
+var connectionStringRMFOLHA = builder.Configuration.GetConnectionString("DefaultConnection");
+
+
+//Builder Overtime
 builder.Services.AddDbContext<AppDbContext>(option =>
-    option.UseSqlServer(ConnectionString));
+    option.UseSqlServer(connectionStringDBOvertime));
+
+
+
+//Builder RMFOLHA
+builder.Services.AddDbContext<AppDbContext>(option =>
+    option.UseSqlServer(connectionStringRMFOLHA));
 
 
 
